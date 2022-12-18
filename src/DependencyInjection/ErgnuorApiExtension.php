@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Ergnuor\ApiPlatformBundle\DependencyInjection;
+namespace Ergnuor\ApiBundle\DependencyInjection;
 
-use Ergnuor\ApiPlatform\Persister\RestPersisterInterface;
-use Ergnuor\ApiPlatform\Repository\RestRepositoryInterface;
-use Ergnuor\ApiPlatformBundle\CacheWarmer\MetadataCacheWarmer;
+use Ergnuor\Api\Persister\RestPersisterInterface;
+use Ergnuor\Api\Repository\RestRepositoryInterface;
+use Ergnuor\ApiBundle\CacheWarmer\MetadataCacheWarmer;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
 use Symfony\Component\Config\FileLocator;
@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ErgnuorApiPlatformExtension extends Extension
+class ErgnuorApiExtension extends Extension
 {
     use BundleDetectorTrait;
 
@@ -46,22 +46,22 @@ class ErgnuorApiPlatformExtension extends Extension
 
 
         $container->registerForAutoconfiguration(RestRepositoryInterface::class)
-            ->addTag('ergnuor.api_platform.repository');
+            ->addTag('ergnuor.api.repository');
         $container->registerForAutoconfiguration(RestPersisterInterface::class)
-            ->addTag('ergnuor.api_platform.persister');
+            ->addTag('ergnuor.api.persister');
     }
 
     private function defineMetadataServices(ContainerBuilder $container): void
     {
-        $cacheId = 'ergnuor.api_platform.mapping.class_metadata_cache';
+        $cacheId = 'ergnuor.api.mapping.class_metadata_cache';
 
         $cache = new Definition(ArrayAdapter::class);
 
         if (!$container->getParameter('kernel.debug')) {
             $phpArrayFile = '%kernel.cache_dir%/ergnuor/api_platform/metadata.php';
 
-            $container->register('ergnuor.api_platform.mapping.class_metadata_cache_warmer', MetadataCacheWarmer::class)
-                ->setArguments([new Reference('ergnuor.api_platform.entity_manager'), $phpArrayFile])
+            $container->register('ergnuor.api.mapping.class_metadata_cache_warmer', MetadataCacheWarmer::class)
+                ->setArguments([new Reference('ergnuor.api.entity_manager'), $phpArrayFile])
                 ->addTag('kernel.cache_warmer', ['priority' => 1000]);
 
             $cache = new Definition(PhpArrayAdapter::class, [$phpArrayFile, $cache]);
@@ -72,6 +72,6 @@ class ErgnuorApiPlatformExtension extends Extension
 
     private function setContainerParameters(ContainerBuilder $container, array $config): void
     {
-        $container->setParameter('ergnuor.api_platform.entity_paths', $config['entity_paths']);
+        $container->setParameter('ergnuor.api.entity_paths', $config['entity_paths']);
     }
 }

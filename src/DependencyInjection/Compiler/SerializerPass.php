@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ergnuor\ApiPlatformBundle\DependencyInjection\Compiler;
+namespace Ergnuor\ApiBundle\DependencyInjection\Compiler;
 
-use Ergnuor\ApiPlatformBundle\DependencyInjection\BundleDetectorTrait;
+use Ergnuor\ApiBundle\DependencyInjection\BundleDetectorTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -26,22 +26,22 @@ class SerializerPass implements CompilerPassInterface
 
         $this->setNormalizers(
             $container,
-            'ergnuor.api_platform.serializer',
-            'ergnuor.api_platform.serializer'
+            'ergnuor.api.serializer',
+            'ergnuor.api.serializer'
         );
     }
 
     private function configureDoctrineEntityNormalizer(ContainerBuilder $container): void
     {
-        $doctrineEntityNormalizer = $container->getDefinition('ergnuor.api_platform.serializer.normalizer.doctrine_entity');
+        $doctrineEntityNormalizer = $container->getDefinition('ergnuor.api.serializer.normalizer.doctrine_entity');
         $doctrineEntityNormalizer->replaceArgument(
             7,
-            new Reference('ergnuor.api_platform.serializer.normalizer.doctrine_entity.class_metadata_getter')
+            new Reference('ergnuor.api.serializer.normalizer.doctrine_entity.class_metadata_getter')
         );
 
         if (!$container->hasParameter('doctrine.entity_managers')) {
             $doctrineEntityNormalizer
-                ->clearTag('ergnuor.api_platform.serializer');
+                ->clearTag('ergnuor.api.serializer');
         }
     }
 

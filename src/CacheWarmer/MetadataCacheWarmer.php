@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Ergnuor\ApiPlatformBundle\CacheWarmer;
+namespace Ergnuor\ApiBundle\CacheWarmer;
 
-use Ergnuor\ApiPlatform\EntityManager\RestEntityManagerInterface;
+use Ergnuor\Api\EntityManager\RestEntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\CacheWarmer\AbstractPhpFileCacheWarmer;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
-
 use function is_file;
 
 class MetadataCacheWarmer extends AbstractPhpFileCacheWarmer

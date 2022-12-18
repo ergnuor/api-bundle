@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Ergnuor\ApiPlatform\EntityManager\RestEntityManager;
-use Ergnuor\ApiPlatform\EntityManager\RestEntityManagerInterface;
+use Ergnuor\Api\EntityManager\RestEntityManager;
+use Ergnuor\Api\EntityManager\RestEntityManagerInterface;
 
 return static function (ContainerConfigurator $container) {
 
     $container->services()
-        ->set('ergnuor.api_platform.entity_manager', RestEntityManager::class)
+        ->set('ergnuor.api.entity_manager', RestEntityManager::class)
             ->args([
-                service('ergnuor.api_platform.mapping.class_metadata_factory'),
-                tagged_locator('ergnuor.api_platform.repository'),
-                tagged_locator('ergnuor.api_platform.persister'),
+                service('ergnuor.api.mapping.class_metadata_factory'),
+                tagged_locator('ergnuor.api.repository'),
+                tagged_locator('ergnuor.api.persister'),
             ])
 
-        ->alias(RestEntityManagerInterface::class, 'ergnuor.api_platform.entity_manager')
+        ->alias(RestEntityManagerInterface::class, 'ergnuor.api.entity_manager')
 
     ;
 };

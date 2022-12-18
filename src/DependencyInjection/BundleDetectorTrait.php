@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ergnuor\ApiPlatformBundle\DependencyInjection;
+namespace Ergnuor\ApiBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

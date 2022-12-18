@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ergnuor\ApiPlatformBundle;
+namespace Ergnuor\ApiBundle;
 
-use Ergnuor\ApiPlatformBundle\DependencyInjection\Compiler\MetadataPass;
-use Ergnuor\ApiPlatformBundle\DependencyInjection\Compiler\SerializerPass;
+use Ergnuor\ApiBundle\DependencyInjection\Compiler\MetadataPass;
+use Ergnuor\ApiBundle\DependencyInjection\Compiler\SerializerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class ErgnuorApiPlatformBundle extends Bundle
+class ErgnuorApiBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
